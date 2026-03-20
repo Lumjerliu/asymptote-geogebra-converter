@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asymptote ↔ GeoGebra Converter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/clike/clike.min.js"></script>
+    <script src="https://www.geogebra.org/apps/deployggb.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Asymptote ↔ GeoGebra Converter</h1>
+            <p class="subtitle">Convert between Asymptote code and interactive GeoGebra diagrams</p>
+        </header>
+
+        <main class="converter-area">
+            <!-- GeoGebra Editor Section -->
+            <div class="panel-section">
+                <div class="section-header">
+                    <h2>GeoGebra Diagram Editor</h2>
+                    <div class="button-group">
+                        <button id="clear-ggb" class="btn btn-secondary">Clear All</button>
+                    </div>
+                </div>
+                <div class="editor-instructions">
+                    <strong>Instructions:</strong> Use the toolbar on the left to add points, lines, circles, and polygons. 
+                    <br><strong>Tip:</strong> Click and hold on a tool icon to see more tools in that category!
+                    <br>For example: Click and hold on the <strong>Line tool</strong> to find <strong>Segment</strong>, or on <strong>Circle tools</strong> to find different circle options.
+                    <br>You can also type commands like <code>Circle((0,0), 2)</code> or <code>Point((1,2))</code> in the input bar.
+                </div>
+                <div id="ggb-editor"></div>
+            </div>
+
+            <div class="convert-section">
+                <button id="convert-to-asy" class="btn btn-primary convert-btn">
+                    ↓ Convert to Asymptote ↓
+                </button>
+            </div>
+
+            <!-- Asymptote Code Section -->
+            <div class="panel-section">
+                <div class="section-header">
+                    <h2>Asymptote Code</h2>
+                    <div class="button-group">
+                        <select id="example-select" class="example-select">
+                            <option value="">Load Example...</option>
+                            <option value="triangle">Triangle</option>
+                            <option value="circle">Circle</option>
+                            <option value="polygon">Polygon</option>
+                        </select>
+                        <button id="copy-asy" class="btn btn-secondary">Copy</button>
+                        <button id="download-asy" class="btn btn-secondary">Download</button>
+                    </div>
+                </div>
+                <textarea id="asy-output"></textarea>
+            </div>
+
+            <div class="convert-section">
+                <button id="convert-to-ggb" class="btn btn-primary convert-btn">
+                    ↑ Convert to GeoGebra ↑
+                </button>
+            </div>
+
+            <!-- GeoGebra Commands Output -->
+            <div class="panel-section">
+                <div class="section-header">
+                    <h2>GeoGebra Commands (from Asymptote)</h2>
+                </div>
+                <div id="ggb-commands" class="commands-output">
+                    <pre id="ggb-commands-list"></pre>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Supports: points, lines, segments, circles, polygons</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

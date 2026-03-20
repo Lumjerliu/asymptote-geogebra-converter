@@ -3,11 +3,11 @@ Asymptote <-> GeoGebra Converter Web Application
 A tool to convert between Asymptote code and GeoGebra diagrams
 """
 
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, send_from_directory
 from converter import AsymptoteToGeoGebra, GeoGebraToAsymptote
 import os
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static', static_url_path='/static')
 
 # Initialize converters
 asy_to_ggb = AsymptoteToGeoGebra()
